@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+}
+
+#main-container {
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+}
+
+#title-search {
+  border: 1px orange solid;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+#time-input-div {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+
+#time-period-div,
+#time-interval-div {
+  display: flex;
+  flex-direction: row;
+}
+
+#time-period,
+#time-interval {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#chartAndDips {
+  border: 2px green solid;
+  display: flex;
+  flex-direction: row;
+
+  /* justify-content: space-evenly; */
+}
+
+#chart {
+  border: 2px red solid;
+  margin: 5px;
+}
+
+#dipsFound {
+  border: 2px violet solid;
+  width: 33%;
+}
+
+#staging-area {
+  border: 2px skyblue solid;
+  margin: 5px;
+  width: max-content;
+  width: 33%;
+}
+
+#dips-table,
+.dips-info {
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr 1fr 1fr;
+  border: 1px black solid;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.dips-content {
+  border-right: 1px black solid;
+}
+
+#staging-header,
+.staging-items {
+  display: grid;
+  grid-template-columns: 0.1fr 0.2fr 0.3fr 0.35fr 0.4fr;
+  border: 1px black solid;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.staging-content {
+  border-right: 1px black solid;
+}
+
+.totalCost {
+  text-align: end;
+  margin-right: 15px;
+}
+
+#currPrice-returnButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px yellow solid;
+}
+
+#returns-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px red solid;
+}
