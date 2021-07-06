@@ -6,7 +6,7 @@ According to investopedia, "Buy The Dip" means purchasing an asset after it has 
 a bargain as the "dip" is only short term blip and the asset, with time, is likely to bounce back and increase in value.
 
 I created Buy The Dip to help frame the psychology around stock "dips" and "down days", as these days could potentially be the best buying opportunity
-for most stocks. With my application you'll be able to identify these dips and their potential returns if you would have invested.
+for most stocks. With Buy The Dip you'll be able to identify these dips and calculate their potential returns if you would have invested.
 
 
 
