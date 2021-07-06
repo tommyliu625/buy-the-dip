@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { StockContext } from '../Store';
 import { createChart, CrosshairMode } from 'lightweight-charts';
-import dummyData from '../dummyDailyPrice';
 
 let chart;
 let candlestickSeries;

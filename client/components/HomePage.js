@@ -3,19 +3,7 @@ import SearchBar from './SearchBar';
 import ChartComponent from './ChartComponent';
 import { StockContext, StockListContext } from '../Store';
 import FindDips from './FindDips';
-import dummyData from '../dummyDailyPrice';
-import PresetStockInfo from '../PresetStockInfo';
 import axios from 'axios';
-
-let APPSPrice;
-let initialStockList;
-
-const fetchInitialData = async () => {
-  let data = await PresetStockInfo();
-  initialStockList = data.initialStockList;
-  // console.log(data);
-};
-fetchInitialData();
 
 const HomePage = (props) => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
