@@ -4,19 +4,44 @@ import ChartComponent from './ChartComponent';
 import { StockContext, StockListContext } from '../Store';
 import FindDips from './FindDips';
 import dummyData from '../dummyDailyPrice';
+import PresetStockInfo from '../PresetStockInfo';
+import axios from 'axios';
+
+let APPSPrice;
+let initialStockList;
+
+const fetchInitialData = async () => {
+  let data = await PresetStockInfo();
+  initialStockList = data.initialStockList;
+  // console.log(data);
+};
+fetchInitialData();
 
 const HomePage = (props) => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
   const [stockList, setStockList] = useContext(StockListContext);
   const { info, stockPrices, company } = stockInfo;
   // this useEffect is dummyData to help filter dips
-  // useEffect(() => {
-  //   dispatchStockInfo({
-  //     type: 'STOCK_INFO',
-  //     info: dummyData.info,
-  //     stockPrices: dummyData.stockPrices,
-  //   });
-  // }, []);
+  useEffect(async () => {
+    axios.get('/api/stocks').then((data) => {
+      setStockList(data.data);
+    });
+    axios.get('/api/daily-price/APPS').then((data) => {
+      const { info, stockPrices } = data.data;
+      dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
+    });
+  }, []);
+
+  useEffect(() => {
+    let selectedTicker = stockList.find((ticker) => {
+      return ticker.ticker === 'APPS'.toUpperCase();
+    });
+    dispatchStockInfo({
+      type: 'COMPANY_INFO',
+      companyInfo: selectedTicker,
+    });
+  }, [stockList]);
+
   return (
     <div id='main-container'>
       <div id='title-search'>
@@ -24,12 +49,16 @@ const HomePage = (props) => {
         <SearchBar />
       </div>
       <div id='title-price-div'>
-        {company && <span>{company.name}</span>}
+        {company && (
+          <h2>
+            {company.name} ({company.ticker})
+          </h2>
+        )}
         {stockPrices && (
-          <span>
+          <h2>
             Stock Price: $
             {Number(stockPrices[stockPrices.length - 1].close).toFixed(2)}
-          </span>
+          </h2>
         )}
       </div>
       <div id='chartAndDips'>

@@ -4,14 +4,17 @@ import { StockContext } from '../Store';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import dummyData from '../dummyDailyPrice';
 
+let chart;
+let candlestickSeries;
+
 const ChartComponent = () => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
   const { stockPrices } = stockInfo;
   const ref = React.useRef();
-  const Chart = createChart;
+
   console.log(ref);
   useEffect(() => {
-    const chart = createChart(ref.current, { width: 600, height: 400 });
+    chart = createChart(ref.current, { width: 600, height: 400 });
     chart.applyOptions({
       timeScale: {
         // rightOffset: 45,
@@ -48,7 +51,7 @@ const ChartComponent = () => {
         },
       },
     });
-    const candlestickSeries = chart.addCandlestickSeries({
+    candlestickSeries = chart.addCandlestickSeries({
       upColor: '#0B6623',
       downColor: '#FF6347',
       borderVisible: false,
@@ -61,11 +64,15 @@ const ChartComponent = () => {
       wickDownColor: '#A52A2A',
     });
     candlestickSeries.setData(stockPrices);
+  }, []);
+  React.useEffect(() => {
+    candlestickSeries.setData(stockPrices);
   }, [stockPrices]);
-  console.log('ref outside', ref);
+  console.log(ref.current);
   return (
     <>
       <div id='chart'>
+        <h2 style={{ textAlign: 'center' }}>Candlestick Chart</h2>
         <div ref={ref} />
       </div>
     </>

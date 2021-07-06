@@ -5,11 +5,15 @@ import axios from 'axios';
 export const StockContext = React.createContext({});
 export const StockListContext = React.createContext({});
 
+let res;
+axios.get('/api/stocks').then((data) => {
+  res = data.data;
+});
 const Store = ({ children }) => {
   // similar to mapState & mapProps]
   const [stockInfo, dispatchStockInfo] = useReducer(singleStockReducer, {});
   const [stockList, setStockList] = useState([]);
-
+  // setStockList(res);
   return (
     // ReceiptDataContext gives all components access to receiptDataState
     <StockContext.Provider value={[stockInfo, dispatchStockInfo]}>

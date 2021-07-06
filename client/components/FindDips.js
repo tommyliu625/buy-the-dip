@@ -12,6 +12,8 @@ const FindDips = () => {
   const [dips, setDips] = useState([]);
   const [returnsSubmitted, setReturnsSubmitted] = useState(false);
   const [submittedCorrectly, setSubmittedCorrectly] = useState(false);
+  const [submittedFilter, setSubmittedFilter] = useState(false);
+  const [incorrectFilter, setIncorrectFilter] = useState(false);
   const [returns, setReturns] = useState({});
   const [totalCost, setTotalCost] = useState(0);
 
@@ -20,6 +22,8 @@ const FindDips = () => {
     setStartDate('');
     setEndDate('');
     setFilterDips([]);
+    setReturnsSubmitted(false);
+    setSubmittedFilter(false);
   }, [stockInfo]);
   const findDips = (year = 0) => {
     let dips = [];
@@ -50,24 +54,30 @@ const FindDips = () => {
     }
     setDips(dips);
   };
-  console.log('dips', dips);
+  useEffect(() => {
+    setReturnsSubmitted(false);
+  }, [filterDips]);
+
   const filterDates = (e) => {
     e.preventDefault();
+    setSubmittedFilter(true);
     const [sYear, sMonth, sDay] = startDate.split('-');
     const [eYear, eMonth, eDay] = endDate.split('-');
     const sDate = Date.parse([sMonth, sDay, sYear].join('/'));
     const eDate = Date.parse([eMonth, eDay, eYear].join('/'));
-    console.log(sDate, eDate);
-    let filteredDips = dips.filter((dip) => {
-      const { year, month, day } = dip.time;
+    if (eDate < sDate || !startDate || !endDate) {
+      setIncorrectFilter(true);
+    } else {
+      setIncorrectFilter(false);
+      let filteredDips = dips.filter((dip) => {
+        const { year, month, day } = dip.time;
 
-      const checkDate = Date.parse([month, day, year]);
-      console.log(eDate >= checkDate, checkDate >= sDate);
-      return eDate >= checkDate && checkDate >= sDate;
-    });
-    setFilterDips(filteredDips);
+        const checkDate = Date.parse([month, day, year]);
+        return eDate >= checkDate && checkDate >= sDate;
+      });
+      setFilterDips(filteredDips);
+    }
   };
-  console.log('filterDips', filterDips);
 
   const addStagingArea = (dip) => {
     dip.staged = true;
@@ -102,7 +112,6 @@ const FindDips = () => {
         }
       }
     }
-    console.log(cost, shares, curr);
     if (inputsFilled === false) {
       setReturnsSubmitted(true);
       setSubmittedCorrectly(false);
@@ -120,7 +129,7 @@ const FindDips = () => {
     <>
       <div id='dipsFound'>
         <h2>Identified Dips</h2>
-        <form onSubmit={filterDates}>
+        <form id='input-date-div' onSubmit={filterDates}>
           <input
             id='event-input'
             type='date'
@@ -174,6 +183,15 @@ const FindDips = () => {
               );
             }
           })}
+        {submittedFilter && !incorrectFilter && filterDips.length === 0 && (
+          <p style={{ color: 'red' }}>
+            No sigificant dips found. Please widen your search parameters or
+            choose another stock.
+          </p>
+        )}
+        {submittedFilter && incorrectFilter && (
+          <p style={{ color: 'red' }}>Invalid Dates.</p>
+        )}
       </div>
       <div id='staging-area'>
         <h2>Staging Area</h2>
