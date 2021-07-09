@@ -4,21 +4,28 @@ import ChartComponent from './ChartComponent';
 import { StockContext, StockListContext } from '../Store';
 import FindDips from './FindDips';
 import axios from 'axios';
+import dummyData from '../../server/api/dummyDailyPrice.js';
 
 const HomePage = (props) => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
   const [stockList, setStockList] = useContext(StockListContext);
   const { info, stockPrices, company } = stockInfo;
   // this useEffect is dummyData to help filter dips
-  useEffect(async () => {
-    axios.get('/api/stocks').then((data) => {
-      setStockList(data.data);
-    });
-    axios.get('/api/daily-price/APPS').then((data) => {
-      const { info, stockPrices } = data.data;
-      dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
-    });
+  useEffect(() => {
+    const { info, stockPrices } = dummyData;
+    console.log('info', info, 'stockPrices', stockPrices);
+    dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
   }, []);
+
+  // useEffect(async () => {
+  //   axios.get('/api/stocks').then((data) => {
+  //     setStockList(data.data);
+  //   });
+  //   axios.get('/api/daily-price/APPS').then((data) => {
+  //     const { info, stockPrices } = data.data;
+  //     dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
+  //   });
+  // }, []);
 
   useEffect(() => {
     let selectedTicker = stockList.find((ticker) => {
