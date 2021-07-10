@@ -8,6 +8,11 @@ body {
   flex-direction: column;
 }
 
+#top-div {
+  display: flex;
+  flex-direction: row;
+}
+
 #title-search {
   display: flex;
   flex-direction: column;
@@ -86,7 +91,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 395px;
+  width: (max-content + 50px);
   align-items: center;
   margin: 0 auto 0 auto;
 }
@@ -132,7 +137,8 @@ body {
   cursor: pointer;
 }
 
-#currPrice-returnButton button {
+#currPrice-returnButton button,
+#dipsFound button {
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   background-color: #e0e0e0;
@@ -146,6 +152,23 @@ body {
   border: 0;
   cursor: pointer;
   height: fit-content;
+}
+
+#parameter-button {
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  background-color: #e0e0e0;
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: max-content;
+  box-sizing: border-box;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  height: fit-content;
+  margin-left: 25px;
 }
 
 #staging-area {

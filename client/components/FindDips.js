@@ -29,10 +29,9 @@ const FindDips = () => {
     setSubmittedFilter(false);
     setPercDip(20);
     setDays(5);
-    findDips();
   }, [stockInfo]);
   const findDips = (e) => {
-    if (submittedParameters) {
+    if (submittedParameters && e) {
       e.preventDefault();
     }
     let dips = [];
@@ -69,22 +68,25 @@ const FindDips = () => {
         i += increment;
       }
     }
-    console.log(percDip, days);
-    console.log(dips);
     setSubmittedParameters(true);
     setDips(dips);
+    filterDates();
   };
   useEffect(() => {
     setReturnsSubmitted(false);
   }, [filterDips]);
   useEffect(() => {
-    setFilterDips([]);
-    setSubmittedFilter(false);
-    setStartDate('');
-    setEndDate('');
+    // setFilterDips([]);
+    // setSubmittedFilter(false);
+    filterDates();
+    // setStartDate('');
+    // setEndDate('');
   }, [dips]);
   const filterDates = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+    console.log('dips', dips);
     setSubmittedFilter(true);
     const [sYear, sMonth, sDay] = startDate.split('-');
     const [eYear, eMonth, eDay] = endDate.split('-');
@@ -100,10 +102,11 @@ const FindDips = () => {
         const checkDate = Date.parse([month, day, year]);
         return eDate >= checkDate && checkDate >= sDate;
       });
+      console.log('filterdips', filteredDips);
       setFilterDips(filteredDips);
     }
   };
-
+  console.log(filterDips);
   const addStagingArea = (dip) => {
     dip.staged = true;
     setFilterDips([...filterDips]);
@@ -165,7 +168,7 @@ const FindDips = () => {
               return <option value={percent}>{percent}</option>;
             })}
           </select>
-          <p> % Dips Within</p>
+          <p> % Dips Within </p>
           <select
             id='days-input'
             value={days}
@@ -176,7 +179,9 @@ const FindDips = () => {
             })}
           </select>
           <p> Days</p>
-          <button type='submit'>Submit Parameters</button>
+          <button id='parameter-button' type='submit'>
+            Submit Parameters
+          </button>
         </form>
         <form id='input-date-div' onSubmit={filterDates}>
           <input
@@ -202,6 +207,7 @@ const FindDips = () => {
           <div className='dips-content-noborder'>Average Price</div>
         </div>
         {filterDips.length > 0 &&
+          !incorrectFilter &&
           filterDips.map((dip) => {
             let { day, month, year } = dip.time;
             let { open, high, low, close } = dip;
@@ -238,7 +244,7 @@ const FindDips = () => {
             choose another stock.
           </p>
         )}
-        {submittedFilter && incorrectFilter && (
+        {submittedFilter && incorrectFilter && filterDips.length > 0 && (
           <p style={{ color: 'red' }}>Invalid Dates.</p>
         )}
       </div>

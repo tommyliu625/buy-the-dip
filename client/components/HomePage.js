@@ -17,15 +17,15 @@ const HomePage = (props) => {
     dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
   }, []);
 
-  // useEffect(async () => {
-  //   axios.get('/api/stocks').then((data) => {
-  //     setStockList(data.data);
-  //   });
-  //   axios.get('/api/daily-price/APPS').then((data) => {
-  //     const { info, stockPrices } = data.data;
-  //     dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
-  //   });
-  // }, []);
+  useEffect(async () => {
+    axios.get('/api/stocks').then((data) => {
+      setStockList(data.data);
+    });
+    // axios.get('/api/daily-price/APPS').then((data) => {
+    //   const { info, stockPrices } = data.data;
+    //   dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
+    // });
+  }, []);
 
   useEffect(() => {
     let selectedTicker = stockList.find((ticker) => {
@@ -39,10 +39,14 @@ const HomePage = (props) => {
 
   return (
     <div id='main-container'>
-      <div id='title-search'>
-        <h1>Buy The Dip - TL</h1>
-        <SearchBar />
+      <div id='top-div'>
+        <div id='title-search'>
+          <h1>Buy The Dip - TL</h1>
+          <SearchBar />
+        </div>
+        <div>hello</div>
       </div>
+
       <div id='title-price-div'>
         {company && (
           <h2>
