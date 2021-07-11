@@ -178,7 +178,7 @@ const FindDips = () => {
               return <option value={day}>{day}</option>;
             })}
           </select>
-          <p> Days</p>
+          <p> Day Periods</p>
           <button id='parameter-button' type='submit'>
             Submit Parameters
           </button>

@@ -3,7 +3,7 @@ body {
 }
 
 #main-container {
-  border: 1px black solid;
+  /* border: 1px black solid; */
   display: flex;
   flex-direction: column;
 }
@@ -102,6 +102,7 @@ body {
 
 #chartAndDips {
   border-top: 1px black solid;
+  border-bottom: 1px black solid;
   display: flex;
   flex-direction: row;
 
