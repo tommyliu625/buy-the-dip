@@ -156,7 +156,7 @@ const FindDips = () => {
   return (
     <>
       <div id='dipsFound'>
-        <h2>Identified Dips</h2>
+        <h2>Find Dips</h2>
         <form id='dip-filter' onSubmit={(e) => findDips(e)}>
           <p>Find </p>
           <select
@@ -201,7 +201,7 @@ const FindDips = () => {
           <button type='submit'>Filter Dates</button>
         </form>
         <div id='dips-table'>
-          <div className='dips-content'>Staging Area</div>
+          <div className='dips-content'>Add Dips</div>
           <div className='dips-content'>Date</div>
           <div className='dips-content'>Lowest Price</div>
           <div className='dips-content-noborder'>Average Price</div>
