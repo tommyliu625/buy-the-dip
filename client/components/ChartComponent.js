@@ -10,10 +10,13 @@ const ChartComponent = () => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
   const { stockPrices } = stockInfo;
   const ref = React.useRef();
-
+  let chartWidth = Math.floor(window.innerWidth / 3);
   console.log(ref);
   useEffect(() => {
-    chart = createChart(ref.current, { width: 600, height: 400 });
+    chart = createChart(ref.current, {
+      width: chartWidth,
+      height: (chartWidth * 2) / 3,
+    });
     chart.applyOptions({
       timeScale: {
         // rightOffset: 45,

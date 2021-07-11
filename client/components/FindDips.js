@@ -12,10 +12,13 @@ const FindDips = () => {
   const [dips, setDips] = useState([]);
   const [returnsSubmitted, setReturnsSubmitted] = useState(false);
   const [submittedCorrectly, setSubmittedCorrectly] = useState(false);
+  const [submittedParameters, setSubmittedParameters] = useState(false);
   const [submittedFilter, setSubmittedFilter] = useState(false);
   const [incorrectFilter, setIncorrectFilter] = useState(false);
   const [returns, setReturns] = useState({});
   const [totalCost, setTotalCost] = useState(0);
+  const [percDip, setPercDip] = useState(0);
+  const [days, setDays] = useState(0);
 
   useEffect(() => {
     findDips();
@@ -24,42 +27,66 @@ const FindDips = () => {
     setFilterDips([]);
     setReturnsSubmitted(false);
     setSubmittedFilter(false);
+    setPercDip(20);
+    setDays(5);
   }, [stockInfo]);
-  const findDips = (year = 0) => {
+  const findDips = (e) => {
+    if (submittedParameters && e) {
+      e.preventDefault();
+    }
     let dips = [];
-    for (let i = 0; i < stockPrices.length - 5; i++) {
+    let percent = percDip || 20;
+    let daysInput = days || 5;
+    let originalPerc = percent / 100;
+    console.log(stockPrices);
+    for (let i = 0; i < stockPrices.length - daysInput; i++) {
+      let perc = originalPerc;
       let curr = (
         (parseFloat(stockPrices[i].close) + parseFloat(stockPrices[i].open)) /
         2
       ).toString();
-      let perc = 0.2;
-      let first = stockPrices[i + 1].low;
-      let second = stockPrices[i + 2].low;
-      let third = stockPrices[i + 3].low;
-      let fourth = stockPrices[i + 4].low;
-      let fifth = stockPrices[i + 5].low;
-      let currDip;
+      let indexTracker = 1;
+      let priceTracker = [];
+      while (indexTracker <= daysInput) {
+        priceTracker.push(stockPrices[i + indexTracker].low);
+        indexTracker++;
+      }
+      // let first = stockPrices[i + 1].low;
+      // let second = stockPrices[i + 2].low;
+      // let third = stockPrices[i + 3].low;
+      // let fourth = stockPrices[i + 4].low;
+      // let fifth = stockPrices[i + 5].low;
       let increment = 0;
-      [first, second, third, fourth, fifth].forEach((price, i) => {
+      priceTracker.forEach((price, i) => {
         if ((curr - price) / curr > perc) {
           perc = (curr - price) / curr;
           increment = i + 1;
-          currDip = price;
         }
       });
-      if (perc > 0.2) {
+      if (perc > originalPerc) {
         dips.push(stockPrices[i + increment]);
         i += increment;
       }
     }
+    setSubmittedParameters(true);
     setDips(dips);
+    filterDates();
   };
   useEffect(() => {
     setReturnsSubmitted(false);
   }, [filterDips]);
-
+  useEffect(() => {
+    // setFilterDips([]);
+    // setSubmittedFilter(false);
+    filterDates();
+    // setStartDate('');
+    // setEndDate('');
+  }, [dips]);
   const filterDates = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+    console.log('dips', dips);
     setSubmittedFilter(true);
     const [sYear, sMonth, sDay] = startDate.split('-');
     const [eYear, eMonth, eDay] = endDate.split('-');
@@ -75,10 +102,11 @@ const FindDips = () => {
         const checkDate = Date.parse([month, day, year]);
         return eDate >= checkDate && checkDate >= sDate;
       });
+      console.log('filterdips', filteredDips);
       setFilterDips(filteredDips);
     }
   };
-
+  console.log(filterDips);
   const addStagingArea = (dip) => {
     dip.staged = true;
     setFilterDips([...filterDips]);
@@ -112,7 +140,7 @@ const FindDips = () => {
         }
       }
     }
-    if (inputsFilled === false) {
+    if (inputsFilled === false || cost === 0) {
       setReturnsSubmitted(true);
       setSubmittedCorrectly(false);
     } else {
@@ -129,6 +157,32 @@ const FindDips = () => {
     <>
       <div id='dipsFound'>
         <h2>Identified Dips</h2>
+        <form id='dip-filter' onSubmit={(e) => findDips(e)}>
+          <p>Find </p>
+          <select
+            id='percentDip-input'
+            value={percDip}
+            onChange={(e) => setPercDip(e.target.value)}
+          >
+            {[15, 20, 25, 30, 35, 40].map((percent) => {
+              return <option value={percent}>{percent}</option>;
+            })}
+          </select>
+          <p> % Dips Within </p>
+          <select
+            id='days-input'
+            value={days}
+            onChange={(e) => setDays(e.target.value)}
+          >
+            {[5, 6, 7, 8, 9, 10].map((day) => {
+              return <option value={day}>{day}</option>;
+            })}
+          </select>
+          <p> Days</p>
+          <button id='parameter-button' type='submit'>
+            Submit Parameters
+          </button>
+        </form>
         <form id='input-date-div' onSubmit={filterDates}>
           <input
             id='event-input'
@@ -153,6 +207,7 @@ const FindDips = () => {
           <div className='dips-content-noborder'>Average Price</div>
         </div>
         {filterDips.length > 0 &&
+          !incorrectFilter &&
           filterDips.map((dip) => {
             let { day, month, year } = dip.time;
             let { open, high, low, close } = dip;
@@ -189,7 +244,7 @@ const FindDips = () => {
             choose another stock.
           </p>
         )}
-        {submittedFilter && incorrectFilter && (
+        {submittedFilter && incorrectFilter && filterDips.length > 0 && (
           <p style={{ color: 'red' }}>Invalid Dates.</p>
         )}
       </div>
@@ -199,7 +254,7 @@ const FindDips = () => {
           <div className='staging-content'></div>
           <div className='staging-content'>Date</div>
           <div className='staging-content'>Shares</div>
-          <div className='staging-content'>Cost</div>
+          <div className='staging-content'>Price Per Share</div>
           <div className='staging-content'>Total</div>
         </div>
         {filterDips.length > 0 &&
