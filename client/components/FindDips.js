@@ -254,7 +254,7 @@ const FindDips = () => {
           <div className='staging-content'></div>
           <div className='staging-content'>Date</div>
           <div className='staging-content'>Shares</div>
-          <div className='staging-content'>Cost</div>
+          <div className='staging-content'>Price Per Share</div>
           <div className='staging-content'>Total</div>
         </div>
         {filterDips.length > 0 &&

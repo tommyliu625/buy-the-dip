@@ -5,6 +5,7 @@ import { StockContext, StockListContext } from '../Store';
 import FindDips from './FindDips';
 import axios from 'axios';
 import dummyData from '../../server/api/dummyDailyPrice.js';
+import InstructionModal from './InstructionModal';
 
 const HomePage = (props) => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
@@ -40,13 +41,20 @@ const HomePage = (props) => {
   return (
     <div id='main-container'>
       <div id='top-div'>
+        <div id='info'>
+          <a href='https://github.com/tommyliu625'>
+            <img src='github-icon.png' width='45px' />
+          </a>
+          <a href='https://www.linkedin.com/in/tommyliu625/'>
+            <img src='linkedin-icon.png' width='40px' />
+          </a>
+        </div>
         <div id='title-search'>
           <h1>Buy The Dip - TL</h1>
           <SearchBar />
         </div>
-        <div>hello</div>
+        <InstructionModal />
       </div>
-
       <div id='title-price-div'>
         {company && (
           <h2>

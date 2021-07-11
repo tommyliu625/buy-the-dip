@@ -11,6 +11,16 @@ body {
 #top-div {
   display: flex;
   flex-direction: row;
+  background-color: aliceblue;
+  justify-content: center;
+}
+
+#info {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 
 #title-search {
@@ -19,6 +29,30 @@ body {
   align-items: center;
   background: aliceblue;
   padding: 10px;
+}
+
+#instruction-button {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  cursor: pointer;
+}
+
+#instruction-div {
+  z-index: 10000000 !important;
+}
+
+#instruction-button:hover {
+  text-decoration: underline;
+}
+
+#instruction-div {
+  position: relative;
+  left: 30%;
 }
 
 #title-search button {
@@ -77,6 +111,7 @@ body {
 #chart {
   padding: 5px 5px 0 10px;
   border-right: 1px black solid;
+  z-index: 0;
 }
 
 #dipsFound {
@@ -96,7 +131,8 @@ body {
   margin: 0 auto 0 auto;
 }
 
-.dips-content button {
+.dips-content button,
+#close-button {
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   background-color: #e0e0e0;

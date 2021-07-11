@@ -11,12 +11,6 @@ const SearchBar = () => {
   const [stockList, setStockList] = useContext(StockListContext);
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
 
-  // useEffect(() => {
-  //   axios.get('/api/stocks').then((data) => {
-  //     setStockList(data.data);
-  //   });
-  // }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validTicker = stockList.some((ticker) => {
@@ -53,26 +47,6 @@ const SearchBar = () => {
     });
     setSearchBarFilter(first25Data);
   };
-  // const handleIntervalMapping = () => {
-  //   const min1 = <option value='1min'>1 Min</option>;
-  //   const min5 = <option value='5min'>5 Min</option>;
-  //   const min15 = <option value='15min'>15 Min</option>;
-  //   const min30 = <option value='30min'>30 Min</option>;
-  //   const min60 = <option value='60min'>60 Min</option>;
-  //   const day = <option value='daily'>Day</option>;
-  //   const week = <option value='weekly'>Week</option>;
-  //   const month = <option value='monthly'>Month</option>;
-  //   let intervalMap = {
-  //     intraday: [min1, min5, min15, min30, min60],
-  //     '5day': [min5, min15, min30, min60],
-  //     '1month': [min60, day],
-  //     '3month': [day],
-  //     '6month': [day],
-  //     '1year': [day, week],
-  //     '2year': [day, week],
-  //     '5year': [week, month],
-  //   };
-  //   return intervalMap[timePeriodSelection].map((option) => option);
 
   return (
     <React.Fragment>
@@ -96,13 +70,8 @@ const SearchBar = () => {
         </datalist>
       </form>
       <button type='submit' onClick={handleSubmit}>
-        Submit Info
+        Submit Ticker
       </button>
-      {/* <div id='time-input-div'> */}
-      {/* {disable && (
-          <p style={{ color: 'red' }}>Button disabled while data is loading</p>
-        )} */}
-      {/* </div> */}
     </React.Fragment>
   );
 };
