@@ -12,20 +12,20 @@ const HomePage = (props) => {
   const [stockList, setStockList] = useContext(StockListContext);
   const { info, stockPrices, company } = stockInfo;
   // this useEffect is dummyData to help filter dips
-  // useEffect(() => {
-  //   const { info, stockPrices } = dummyData;
-  //   console.log('info', info, 'stockPrices', stockPrices);
-  //   dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
-  // }, []);
+  useEffect(() => {
+    const { info, stockPrices } = dummyData;
+    console.log('info', info, 'stockPrices', stockPrices);
+    dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
+  }, []);
 
   useEffect(async () => {
     axios.get('/api/stocks').then((data) => {
       setStockList(data.data);
     });
-    axios.get('/api/daily-price/APPS').then((data) => {
-      const { info, stockPrices } = data.data;
-      dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
-    });
+    // axios.get('/api/daily-price/APPS').then((data) => {
+    //   const { info, stockPrices } = data.data;
+    //   dispatchStockInfo({ type: 'STOCK_INFO', info, stockPrices });
+    // });
   }, []);
 
   useEffect(() => {
