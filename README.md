@@ -13,8 +13,8 @@ for most stocks. With Buy The Dip you'll be able to identify these dips and calc
 <a href="https://buy-the-dip.herokuapp.com/"> Buy The Dip </a>
 <img src='https://payuppal-bucket.s3.amazonaws.com/Pic+3.png' />
 
-
-## Deployed 
+### Instructions 
+<img src='https://payuppal-bucket.s3.amazonaws.com/Pic+1.png' width='75px'  />
                                            
 ## Tech-Stack
 The front-end is built using React, JavaScript, HTML, CSS, Lightweight-Charts. The backend is built with Node and Express. For financial data, I used AlphaVantage 
