@@ -44,10 +44,6 @@ body {
   cursor: pointer;
 }
 
-#instruction-div {
-  z-index: 10000000 !important;
-}
-
 #instruction-button:hover {
   text-decoration: underline;
 }
