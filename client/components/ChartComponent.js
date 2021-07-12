@@ -10,7 +10,10 @@ const ChartComponent = () => {
   const [stockInfo, dispatchStockInfo] = useContext(StockContext);
   const { stockPrices } = stockInfo;
   const ref = React.useRef();
-  let chartWidth = Math.floor(window.innerWidth / 3);
+  let chartWidth =
+    window.innerWidth > 600
+      ? Math.floor(window.innerWidth / 3)
+      : window.innerWidth * 1.1;
   console.log(ref);
   useEffect(() => {
     chart = createChart(ref.current, {

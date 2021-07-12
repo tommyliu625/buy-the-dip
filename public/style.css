@@ -268,3 +268,78 @@ body {
   justify-content: space-around;
   border-bottom: 1px black solid;
 }
+
+@media screen and (max-width: 550px) {
+  #app {
+    width: max-content;
+  }
+  #top-div {
+    min-width: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  #info {
+    min-width: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border: 0;
+  }
+  #title-price-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  #chartAndDips {
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    /* justify-content: space-evenly; */
+  }
+  #dipsFound {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 0px 4px 0px 4px;
+    border-right: 1px black solid;
+    border-top: 1px black solid;
+  }
+  #staging-area {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px black solid;
+    margin-top: 15px;
+    width: 100%;
+  }
+  #title-price-div h2 {
+    text-align: center;
+  }
+  #info a {
+    width: fit-content;
+    position: relative;
+    left: 0px;
+    top: 0px;
+  }
+  #info {
+    width: fit-content;
+  }
+  /* .ReactModal__Content--after-open {
+    position: absolute;
+    inset: 537px auto auto 91px;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    transform: translate(-20%, -70%);
+    z-index: 4;
+    height: 700px;
+    width: 449px;
+  } */
+}

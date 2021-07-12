@@ -4,19 +4,34 @@ import Modal from 'react-modal';
 let height = Math.floor(window.innerHeight / 1.78);
 let width = Math.floor(window.innerWidth / 2.75);
 
-const customStyles = {
-  content: {
-    top: `${height}px`,
-    left: `${width}px`,
-    right: 'auto',
-    bottom: 'auto',
-    // marginRight: '-50%',
-    transform: 'translate(-20%, -70%)',
-    zIndex: 3,
-    height: '700px',
-    width: '800px',
-  },
-};
+const customStyles =
+  window.innerWidth > 600
+    ? {
+        content: {
+          top: `${height}px`,
+          left: `${width}px`,
+          right: 'auto',
+          bottom: 'auto',
+          // marginRight: '-50%',
+          transform: 'translate(-20%, -70%)',
+          zIndex: 3,
+          height: '700px',
+          width: '800px',
+        },
+      }
+    : {
+        content: {
+          // top: `537px`,
+          // left: `91px`,
+          inset: '0px',
+          right: 'auto',
+          bottom: 'auto',
+          // marginRight: '-50%',
+          zIndex: 4,
+          height: '700px',
+          width: 'min-content',
+        },
+      };
 
 export default function InstructionModal() {
   let subtitle;
